@@ -16,22 +16,27 @@ export const Navbar = () => {
   return (
     <nav>
       <div className="links">
-        <Link to="/">Home</Link>
-        <Link to="login">Login</Link>
-        <Link to="contact">contact</Link>
+        <Link to="/">Entry</Link>
+        <Link to="login">All-Entries</Link>
+        <Link to="contact">My-Entries</Link>
+        {user && <button onClick={signUserOut}>Log out</button>}
       </div>
-      {user && (
-        <div className='user'>
-          {/* <p>{user?.displayName}</p> */}
-          {/* <img
-            src={user?.photoURL || ""}
-            referrerPolicy="no-referrer"
-            width="100"
-            height="100"
-          /> */}
-          <button onClick={signUserOut}>Log out</button>
-        </div>
-      )}
+      
     </nav>
   );
 }
+
+// {
+//   user && (
+//     <div className="user">
+//       {/* <p>{user?.displayName}</p> */}
+//       {/* <img
+//             src={user?.photoURL || ""}
+//             referrerPolicy="no-referrer"
+//             width="100"
+//             height="100"
+//           /> */}
+//       <button onClick={signUserOut}>Log out</button>
+//     </div>
+//   );
+// }
