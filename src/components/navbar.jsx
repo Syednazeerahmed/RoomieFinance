@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -9,19 +9,39 @@ import { signOut } from "firebase/auth";
 export const Navbar = () => {
 
   const [ user ] = useAuthState(auth);
-
+  useEffect(() => {
+        console.log(user?.displayName); 
+        console.log(user); 
+  }, [])
+  
   const signUserOut = async () => {
     await signOut(auth);
   };
   return (
     <nav>
       <div className="links">
-        <Link to="/">Entry</Link>
-        <Link to="login">All-Entries</Link>
-        <Link to="contact">My-Entries</Link>
-        {user && <button onClick={signUserOut}>Log out</button>}
+        <Link to="/">home</Link>
+        <Link to="login">login</Link>
+        <Link to="entry">Entry</Link>
+        {user && (
+          <>
+            {/* <Link to="/">Entry</Link>
+            <Link to="login">All-Entries</Link>
+            <Link to="contact">My-Entries</Link> */}
+            {/* <button onClick={signUserOut}>Log out</button> */}
+          </>
+        )}
       </div>
-      
+      <div className="user">
+        {user && (
+          <>
+            {/* <Link to="/">Entry</Link>
+            <Link to="login">All-Entries</Link>
+            <Link to="contact">My-Entries</Link> */}
+            <button onClick={signUserOut}>Log out</button>
+          </>
+        )}
+      </div>
     </nav>
   );
 }
