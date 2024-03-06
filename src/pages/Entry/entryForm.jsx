@@ -30,9 +30,10 @@ export const EntryForm = () => {
     await addDoc(postsRef, {
       ...data,
       username: user?.displayName,
-      date: new Date(),
+      date: new Date().toString().slice(4,10),
       userId: user?.uid,
     });
+    reset();
   }
   return (
     <form onSubmit={handleSubmit(onCreatePost)}>

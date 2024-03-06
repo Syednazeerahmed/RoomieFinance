@@ -9,10 +9,10 @@ import { signOut } from "firebase/auth";
 export const Navbar = () => {
 
   const [ user ] = useAuthState(auth);
-  useEffect(() => {
-        console.log(user?.displayName); 
-        console.log(user); 
-  }, [])
+  // useEffect(() => {
+  //       console.log(user?.displayName); 
+  //       console.log(user); 
+  // }, [])
   
   const signUserOut = async () => {
     await signOut(auth);
@@ -21,13 +21,12 @@ export const Navbar = () => {
     <nav>
       <div className="links">
         <Link to="/">home</Link>
-        <Link to="login">login</Link>
-        <Link to="entry">Entry</Link>
+        { !user && <Link to="login">login</Link>}
+        {/* <Link to="entry">Entry</Link> */}
         {user && (
           <>
-            {/* <Link to="/">Entry</Link>
-            <Link to="login">All-Entries</Link>
-            <Link to="contact">My-Entries</Link> */}
+            <Link to="entry">Entry</Link>
+            <Link to="allEntries">All-Entries</Link>
             {/* <button onClick={signUserOut}>Log out</button> */}
           </>
         )}
