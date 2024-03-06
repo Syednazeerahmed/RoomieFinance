@@ -1,0 +1,16 @@
+.displayAmount{
+    height: 2.3em;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 1;
+    background-color: rgba(1, 0, 6, 0.934);
+    color:white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table {
+    height: 80vh;
+}

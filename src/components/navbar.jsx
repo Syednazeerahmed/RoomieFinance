@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../config/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import "../styles/navbar.css";
@@ -8,14 +8,13 @@ import { signOut } from "firebase/auth";
 
 export const Navbar = () => {
 
+  const navigate = useNavigate();
   const [ user ] = useAuthState(auth);
-  // useEffect(() => {
-  //       console.log(user?.displayName); 
-  //       console.log(user); 
-  // }, [])
+
   
   const signUserOut = async () => {
     await signOut(auth);
+    navigate('/');
   };
   return (
     <nav>
@@ -25,8 +24,8 @@ export const Navbar = () => {
         {/* <Link to="entry">Entry</Link> */}
         {user && (
           <>
-            <Link to="entry">Entry</Link>
-            <Link to="allEntries">All-Entries</Link>
+            <Link to="entry">Input</Link>
+            <Link to="allEntries">Expenses</Link>
             {/* <button onClick={signUserOut}>Log out</button> */}
           </>
         )}

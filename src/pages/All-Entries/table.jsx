@@ -4,19 +4,28 @@ import { db } from "../../config/firebase";
 import DataTable from "react-data-table-component";
 
 export const Table = () => {
+  
   const postsRef = collection(db, "Posts");
+  
+
 
   const [postsList, setPostsList] = useState([]);
 
   const getPosts = async () => {
     const data = await getDocs(postsRef);
-    //   console.log(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    setPostsList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    // console.log(postsList.map((post) => ({ name: post.username, description: post.description, amount: post.amount })));
+    // setPostsList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    const sortedPostsList = data.docs
+      .map((doc) => ({ ...doc.data(), id: doc.id }))
+      .sort((a, b) => {
+        const dateA = new Date(`${a.date} ${new Date().getFullYear()}`);
+        const dateB = new Date(`${b.date} ${new Date().getFullYear()}`);
+        return dateA - dateB;
+      });
+      setPostsList(sortedPostsList);
   };
   useEffect(() => {
     getPosts();
-    console.log(data);
+    // console.log(data);
   }, []);
 
   const columns = [
@@ -66,11 +75,24 @@ export const Table = () => {
       date: post.date,
     };
   });
+
+  const [ records, setRecords ] = useState(data);
+  useEffect(() => {
+    setRecords(
+      postsList.map((post) => ({
+        name: post.username,
+        description: post.description,
+        amount: post.amount,
+        date: post.date,
+      }))
+    );
+  }, [postsList]);
+  
   return (
     <div>
       <DataTable
         columns={columns}
-        data={data}
+        data={records}
         // fixedHeader
         // pagination
       ></DataTable>
