@@ -1,3 +1,11 @@
+@font-face {
+  font-family: mulish;
+  src: url(../public/Mulish-VariableFont_wght.ttf);
+}
+
+*{ 
+  font-family: mullish;
+}
 .App {
   text-align: center;
   /* overflow: hidden; */
