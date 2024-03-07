@@ -9,7 +9,7 @@ form{
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    margin: 1em 1em;
+    margin: 1em .5em;
 }
 form > * {
     margin: 0.3em 0;
@@ -20,7 +20,7 @@ form label {
     font-weight: bold;
     color:rgba(1, 0, 6, 0.934);
 }
-input, textarea {
+input {
     width: 100%;
     padding: 0.5em;
     font-size: 1em;
@@ -34,7 +34,7 @@ form label small{
 }
 
 form .addExpense{
-    width:40%;
+    width:6.5em;
     font-size: .9em;
     /* padding:.5em; */
     background-color: rgba(1, 0, 6, 0.934) ;

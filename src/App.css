@@ -9,8 +9,16 @@
 .App {
   text-align: center;
   /* overflow: hidden; */
+    /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  margin: 0 auto;
 }
 
-/* @media only screen and (max-width: 575px) {
-   CSS styles for devices with a width of 320px or less 
-} */
+
+@media only screen and (min-width: 575px) {
+  .App {
+  width: 275px;
+ height: 575px;
+  }
+}

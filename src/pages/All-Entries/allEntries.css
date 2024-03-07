@@ -1,6 +1,9 @@
-.displayAmount{
+.dataTable {
+    height: 5em;
+}
+.displayAmount {
     height: 2.3em;
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
     bottom: 0;
     z-index: 1;
@@ -9,8 +12,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    /* bottom: 0; */
 }
 
 .table {
-    height: 80vh;
+    position: relative; ;
 }

@@ -20,7 +20,7 @@ export const Navbar = () => {
     <nav>
       <div className="links">
         {/* <Link to="/">home</Link> */}
-        { !user && <Link to="/">login</Link>}
+        {/* { !user && <Link to="/">login</Link>} */}
         {/* <Link to="entry">Entry</Link> */}
         {user && (
           <>

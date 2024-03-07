@@ -11,7 +11,7 @@ export const AllEntries = () => {
   const [postsList, setPostsList] = useState([]);
 
   const [totalAmount, setTotalAmount] = useState(0);
-  
+
   const getPosts = async () => {
     const data = await getDocs(postsRef);
     // setPostsList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
@@ -24,16 +24,15 @@ export const AllEntries = () => {
       });
     setPostsList(sortedPostsList);
 
-    let temp = 0;
-    for (let i = 0; i < postsList.length; i++) {
-      temp += Number(postsList[i].amount);
-    }
-    setTotalAmount(temp);
+    // let temp = 0;
+    // for (let i = 0; i < postsList.length; i++) {
+    //   temp += Number(postsList[i].amount);
+    // }
+    // setTotalAmount(temp);
 
   };
   useEffect(() => {
     getPosts();
-    // console.log(data);
   }, []);
 
   const columns = [
@@ -43,7 +42,16 @@ export const AllEntries = () => {
       sortable: true,
       width: "80px",
       cell: (row) => (
-        <div style={{ padding: "0px", margin: "0px" }}>{row.name}</div>
+        <div
+          style={{
+            padding: "0px",
+            margin: "0px",
+            height: "15px",
+            overflow: "hidden",
+          }}
+        >
+          {row.name}
+        </div>
       ),
     },
     {
@@ -51,7 +59,15 @@ export const AllEntries = () => {
       selector: (row) => row.description,
       width: "120px",
       cell: (row) => (
-        <div style={{ padding: "0px", margin: "0px", textAlign: "center" }}>
+        <div
+          style={{
+            padding: "0px",
+            margin: "0px",
+            textAlign: "center",
+            height: "15px",
+            overflow: "hidden",
+          }}
+        >
           {row.description}
         </div>
       ),
@@ -61,7 +77,16 @@ export const AllEntries = () => {
       selector: (row) => row.amount,
       width: "60px",
       cell: (row) => (
-        <div style={{ padding: "0px", margin: "0px" }}>{row.amount}</div>
+        <div
+          style={{
+            padding: "0px",
+            margin: "0px",
+            height: "15px",
+            overflow: "hidden",
+          }}
+        >
+          {row.amount}
+        </div>
       ),
     },
     {
@@ -70,7 +95,16 @@ export const AllEntries = () => {
       sortable: true,
       width: "80px",
       cell: (row) => (
-        <div style={{ padding: "0px", margin: "0px" }}>{row.date}</div>
+        <div
+          style={{
+            padding: "0px",
+            margin: "0px",
+            height: "15px",
+            overflow: "hidden",
+          }}
+        >
+          {row.date}
+        </div>
       ),
     },
   ];
@@ -96,29 +130,33 @@ export const AllEntries = () => {
         date: post.date,
       }))
     );
-    // let temp = 0;
-    // for(let i=0;i<records.length;i++) {
-    //   temp += Number(records[i].amount);
-    // }
-    // setTotalAmount(temp);
+    let temp = 0;
+    for(let i=0;i<records.length;i++) {
+      temp += Number(records[i].amount);
+    }
+    setTotalAmount(temp);
     // console.log(temp);
   }, [postsList]);
+
+  useEffect(() => {
+    let temp = 0;
+    for (let i = 0; i < records.length; i++) {
+      temp += Number(records[i].amount);
+    }
+    setTotalAmount(temp);
+  }, [records]);
 
   function handleFilter(event) {
       const newData = data.filter(row => {
         return row.name.toLowerCase().includes(event.target.value.toLowerCase());
       })  
       setRecords(newData);
-      let temp = 0;
-      for (let i = 0; i < records.length; i++) {
-        temp += Number(records[i].amount);
-      }
-      setTotalAmount(temp);
+      
   }
   return (
-    <div>
+    <div className="table">
       <input type="text" placeholder="name filter" onChange={handleFilter} />
-      <div className='table'>
+      <div style={{ height: "505px", overflowY: "auto" }} className="dataTable">
         <DataTable
           columns={columns}
           data={records}
@@ -126,10 +164,10 @@ export const AllEntries = () => {
           // pagination
           // selectableRows
         ></DataTable>
-      </div>
-      <div className="displayAmount">
-        <h2>Amount : {totalAmount}</h2>
-        {/* <input value={totalAmount} /> */}
+        <div className="displayAmount">
+          <h2>Amount : {totalAmount}</h2>
+          {/* <input value={totalAmount} /> */}
+        </div>
       </div>
     </div>
   );

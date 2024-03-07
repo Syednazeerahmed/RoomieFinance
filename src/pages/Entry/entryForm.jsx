@@ -38,7 +38,7 @@ export const EntryForm = () => {
   return (
     <form onSubmit={handleSubmit(onCreatePost)}>
       <label>
-        Description&#160; <small>Enter a description</small>
+        Description&#160;<small>Enter description</small>
       </label>
       <input placeholder="description" {...register("description")} />
       {/* <p className='dError'> {errors.description?.message}</p> */}
@@ -47,7 +47,7 @@ export const EntryForm = () => {
       </label>
       <input type="number" placeholder="amount" {...register("amount")} />
       {/* <p> {errors.amount?.message}</p> */}
-      <input type="submit" value='Add Expense' className='addExpense'/>
+      <input type="submit" value="Add Expense" className="addExpense" />
     </form>
   );
 }

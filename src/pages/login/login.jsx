@@ -12,7 +12,7 @@ export const Login = () => {
   };
   return (
     <div className="login">
-      <button onClick={signInWithGoogle} className="signIn">Sign In With Google To Continue</button>
+      <button onClick={signInWithGoogle} className="signIn">Sign In With Google</button>
     </div>
   );
 };
