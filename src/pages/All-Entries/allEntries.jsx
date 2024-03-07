@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react'
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, query, orderBy } from "firebase/firestore";
 import { db } from '../../config/firebase';
 import DataTable from 'react-data-table-component';
 import './allEntries.css';
@@ -8,28 +8,15 @@ export const AllEntries = () => {
 
   const postsRef = collection(db, "Posts");
 
-  const [postsList, setPostsList] = useState([]);
+  const sortedPostsQuery = query(postsRef, orderBy("date", "asc"));
+
+  const [expenseList, setExpenseList] = useState([]);
 
   const [totalAmount, setTotalAmount] = useState(0);
 
   const getPosts = async () => {
-    const data = await getDocs(postsRef);
-    // setPostsList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    const sortedPostsList = data.docs
-      .map((doc) => ({ ...doc.data(), id: doc.id }))
-      .sort((a, b) => {
-        const dateA = new Date(`${a.date} ${new Date().getFullYear()}`);
-        const dateB = new Date(`${b.date} ${new Date().getFullYear()}`);
-        return dateA - dateB;
-      });
-    setPostsList(sortedPostsList);
-
-    // let temp = 0;
-    // for (let i = 0; i < postsList.length; i++) {
-    //   temp += Number(postsList[i].amount);
-    // }
-    // setTotalAmount(temp);
-
+    const data = await getDocs(sortedPostsQuery);
+    setExpenseList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
   useEffect(() => {
     getPosts();
@@ -111,7 +98,7 @@ export const AllEntries = () => {
   
   
 
-  const data = postsList.map((post) => {
+  const data = expenseList.map((post) => {
     return {
       name: post.username,
       description: post.description,
@@ -123,7 +110,7 @@ export const AllEntries = () => {
   const [records, setRecords] = useState(data);
   useEffect(() => {
     setRecords(
-      postsList.map((post) => ({
+      expenseList.map((post) => ({
         name: post.username,
         description: post.description,
         amount: post.amount,
@@ -136,7 +123,7 @@ export const AllEntries = () => {
     }
     setTotalAmount(temp);
     // console.log(temp);
-  }, [postsList]);
+  }, [expenseList]);
 
   useEffect(() => {
     let temp = 0;
@@ -145,6 +132,10 @@ export const AllEntries = () => {
     }
     setTotalAmount(temp);
   }, [records]);
+
+  const thisMonth = (data) => {
+    return 0;
+  }
 
   function handleFilter(event) {
       const newData = data.filter(row => {
