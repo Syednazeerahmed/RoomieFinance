@@ -191,7 +191,7 @@ export const AllEntries = () => {
         <input type="text" placeholder="name filter" onChange={handleFilter} />
         <button onClick={range}>{ thisMonth || prevMonth ? (thisMonth ? "This Month" : "Prev Month") : "All"}</button>
       </div>
-      <div style={{ height: "505px", overflowY: "auto" }} className="dataTable">
+      <div style={{ height: "442px", overflowY: "auto" }} className="dataTable">
         <DataTable
           columns={columns}
           data={records}
@@ -199,11 +199,11 @@ export const AllEntries = () => {
           // pagination
           // selectableRows
         ></DataTable>
+      </div>
         <div className="displayAmount">
           <h2>Amount : {totalAmount}</h2>
           {/* <input value={totalAmount} /> */}
         </div>
-      </div>
     </div>
   );
 }

@@ -10,6 +10,7 @@ nav {
     align-items: center;
     z-index: 1;
    /* position: fixed; */
+    border-radius: 10px;
     
 }
 
