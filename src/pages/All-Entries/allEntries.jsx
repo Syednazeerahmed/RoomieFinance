@@ -14,6 +14,13 @@ export const AllEntries = () => {
 
   const [totalAmount, setTotalAmount] = useState(0);
 
+  const [ thisMonth, setThisMonth ] = useState(true);
+  // const thisMonth = true;
+
+  const [ prevMonth, setPrevMonth ] = useState(false);
+
+  const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
   const getPosts = async () => {
     const data = await getDocs(sortedPostsQuery);
     setExpenseList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
@@ -117,13 +124,16 @@ export const AllEntries = () => {
         date: post.date,
       }))
     );
+    
+    setRecords((prev) => filterMonth(prev));
+
     let temp = 0;
     for(let i=0;i<records.length;i++) {
       temp += Number(records[i].amount);
     }
     setTotalAmount(temp);
     // console.log(temp);
-  }, [expenseList]);
+  }, [expenseList, thisMonth, prevMonth]);
 
   useEffect(() => {
     let temp = 0;
@@ -133,20 +143,54 @@ export const AllEntries = () => {
     setTotalAmount(temp);
   }, [records]);
 
-  const thisMonth = (data) => {
-    return 0;
+  const filterMonth = (data) => {
+    
+    if(thisMonth) {
+      const newData = data.filter(row => {
+        return row.date.includes(new Date().toString().slice(4,7));
+      });
+      return newData;
+    }   
+    else if(prevMonth) {
+      const newData = data.filter(row => {
+        return row.date.includes(month[new Date().getMonth() - 1]);
+      });
+      return newData;
+    }
+    else {
+      return data;
+    }
+    
+  }
+
+  function range() {
+    if (thisMonth) {
+      setPrevMonth((prev) => !prev);
+      setThisMonth((prev) => !prev);
+      return;
+    }
+    if (prevMonth) {
+      setPrevMonth((prev) => !prev);
+      return;
+    } 
+    else {
+      setThisMonth((prev) => !prev);
+    }
   }
 
   function handleFilter(event) {
       const newData = data.filter(row => {
         return row.name.toLowerCase().includes(event.target.value.toLowerCase());
       })  
-      setRecords(newData);
+      setRecords(() => filterMonth(newData));
       
   }
   return (
     <div className="table">
-      <input type="text" placeholder="name filter" onChange={handleFilter} />
+      <div className='filter'>
+        <input type="text" placeholder="name filter" onChange={handleFilter} />
+        <button onClick={range}>{ thisMonth || prevMonth ? (thisMonth ? "This Month" : "Prev Month") : "All"}</button>
+      </div>
       <div style={{ height: "505px", overflowY: "auto" }} className="dataTable">
         <DataTable
           columns={columns}
