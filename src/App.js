@@ -12,7 +12,6 @@ function App() {
       <Router>
         <Navbar/>
         <Routes>
-          {/* <Route path='/' element={<Main />}/> */}
           <Route path='/' element={<Login />}/>
           <Route path='/entry' element={<Entry />}/>
           <Route path='/allEntries' element={<AllEntries />} />
