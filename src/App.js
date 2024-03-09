@@ -14,8 +14,8 @@ function App() {
         <Routes>
           {/* <Route path='/' element={<Main />}/> */}
           <Route path='/' element={<Login />}/>
-          <Route path='entry' element={<Entry />}/>
-          <Route path='allEntries' element={<AllEntries />} />
+          <Route path='/entry' element={<Entry />}/>
+          <Route path='/allEntries' element={<AllEntries />} />
         </Routes>
       </Router>
     </div>
