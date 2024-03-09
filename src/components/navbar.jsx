@@ -19,8 +19,7 @@ export const Navbar = () => {
   return (
     <nav>
       <div className="links">
-        <Link to="/">home</Link>
-        {/* { !user && <Link to="/">login</Link>} */}
+        { !user && <Link to="/">login</Link>}
         {/* <Link to="entry">Entry</Link> */}
         {user && (
           <>
@@ -33,9 +32,6 @@ export const Navbar = () => {
       <div className="user">
         {user && (
           <>
-            {/* <Link to="/">Entry</Link>
-            <Link to="login">All-Entries</Link>
-            <Link to="contact">My-Entries</Link> */}
             <button onClick={signUserOut}>Log out</button>
           </>
         )}
