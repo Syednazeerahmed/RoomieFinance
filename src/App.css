@@ -23,5 +23,6 @@
   .App {
   width: 275px;
  height: 575px;
+ margin-top: 20vh;
   }
 }
