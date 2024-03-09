@@ -204,7 +204,7 @@ export const AllEntries = () => {
       <div
         style={{
           height: "auto",
-          maxHeight: "calc(100vh - 180px)",
+          maxHeight: "calc(100vh - 124.6px)",
           overflowY: "auto",
         }}
         className="dataTable"

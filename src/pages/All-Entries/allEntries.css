@@ -5,7 +5,9 @@
 .table {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 50px) ;
+    height: auto;
+    max-height: calc(100vh - 49px);
+    /* height: calc(100vh - 48px) ; */
 }
 
 .displayAmount {
