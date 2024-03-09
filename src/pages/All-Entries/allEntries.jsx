@@ -187,9 +187,19 @@ export const AllEntries = () => {
   }
   return (
     <div className="table">
-      <div className='filter'>
+      <div className="filter">
         <input type="text" placeholder="name filter" onChange={handleFilter} />
-        <button onClick={range}>{ thisMonth || prevMonth ? (thisMonth ? "This Month" : "Prev Month") : "All"}</button>
+        <button onClick={range}>
+          {thisMonth || prevMonth
+            ? thisMonth
+              ? "This Month"
+              : "Prev Month"
+            : "All"}
+        </button>
+      </div>
+      <div className="displayAmount">
+        <h2>Amount : {totalAmount}</h2>
+        {/* <input value={totalAmount} /> */}
       </div>
       <div style={{ height: "442px", overflowY: "auto" }} className="dataTable">
         <DataTable
@@ -200,10 +210,6 @@ export const AllEntries = () => {
           // selectableRows
         ></DataTable>
       </div>
-        <div className="displayAmount">
-          <h2>Amount : {totalAmount}</h2>
-          {/* <input value={totalAmount} /> */}
-        </div>
     </div>
   );
 }
