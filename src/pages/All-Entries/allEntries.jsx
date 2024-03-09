@@ -201,7 +201,14 @@ export const AllEntries = () => {
         <h2>Amount : {totalAmount}</h2>
         {/* <input value={totalAmount} /> */}
       </div>
-      <div style={{ height: "550px", overflowY: "auto" }} className="dataTable">
+      <div
+        style={{
+          height: "auto",
+          maxHeight: "calc(100vh - 180px)",
+          overflowY: "auto",
+        }}
+        className="dataTable"
+      >
         <DataTable
           columns={columns}
           data={records}
