@@ -4,18 +4,21 @@ import { Navbar } from './components/navbar';
 import { Login } from "./pages/login/login";
 import { Entry } from './pages/Entry/entry';
 import { AllEntries } from './pages/All-Entries/allEntries';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Navbar/>
-        <Routes>
-          <Route path='/' element={<Login />}/>
-          <Route path='/entry' element={<Entry />}/>
-          <Route path='/allEntries' element={<AllEntries />} />
-        </Routes>
-      </Router>
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/entry" element={<Entry />} />
+              <Route path="/allEntries" element={<AllEntries />} />
+            </Route>
+          </Routes>
+        </Router>
     </div>
   );
 }

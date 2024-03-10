@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { getDocs, collection, query, orderBy } from "firebase/firestore";
 import { db } from '../../config/firebase';
 import DataTable from 'react-data-table-component';

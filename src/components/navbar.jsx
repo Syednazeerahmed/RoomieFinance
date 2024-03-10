@@ -8,24 +8,23 @@ import { signOut } from "firebase/auth";
 
 export const Navbar = () => {
 
-  const navigate = useNavigate();
-  const [ user ] = useAuthState(auth);
 
   
+  const navigate = useNavigate();
+  const [user] = useAuthState(auth); // Initialize user state with null
+
   const signUserOut = async () => {
     await signOut(auth);
-    navigate('/');
+    navigate("/");
   };
   return (
     <nav>
       <div className="links">
         { !user && <Link to="/">login</Link>}
-        {/* <Link to="entry">Entry</Link> */}
         {user && (
           <>
             <Link to="entry">Input</Link>
             <Link to="allEntries">Expenses</Link>
-            {/* <button onClick={signUserOut}>Log out</button> */}
           </>
         )}
       </div>
