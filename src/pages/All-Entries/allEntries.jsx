@@ -25,6 +25,7 @@ export const AllEntries = () => {
     const data = await getDocs(sortedPostsQuery);
     setExpenseList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
+  
   useEffect(() => {
     getPosts();
   }, []);

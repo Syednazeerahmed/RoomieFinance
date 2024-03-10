@@ -38,3 +38,12 @@
     cursor: pointer;
     width: 9em;
 }
+
+@media only screen and (min-width: 575px) {
+    .table {
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            max-height: calc(575px - 49px);
+    }
+}
