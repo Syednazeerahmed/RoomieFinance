@@ -11,8 +11,8 @@ export const EntryForm = () => {
   const [ user ] = useAuthState(auth);
 
   const schema = yup.object().shape({
-    description: yup.string().max(20).required('you must add description'),
-    amount: yup.number().min(1,"amount should be positive").max(99999).required('you must enter amount')
+    description: yup.string().max(20).required('description is required'),
+    amount: yup.number().min(1,"amount should be positive").max(99999).required('amount is required')
   });
 
   const { register, handleSubmit, formState: { errors }, reset  } = useForm({
@@ -30,7 +30,7 @@ export const EntryForm = () => {
     await addDoc(postsRef, {
       ...data,
       username: user?.displayName,
-      date: new Date().toString().slice(4,10),
+      date: new Date(),
       userId: user?.uid,
     });
     reset();
@@ -41,7 +41,7 @@ export const EntryForm = () => {
         Description&#160;<small>Enter description</small>
       </label>
       <input placeholder="description" {...register("description")} />
-      {/* <p className='dError'> {errors.description?.message}</p> */}
+      {/* <p> {errors.description?.message}</p> */}
       <label>
         Amount&#160; <small>Enter the amount</small>
       </label>

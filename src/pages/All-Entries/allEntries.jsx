@@ -23,7 +23,13 @@ export const AllEntries = () => {
 
   const getPosts = async () => {
     const data = await getDocs(sortedPostsQuery);
-    setExpenseList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    setExpenseList(
+      data.docs.map((doc) => ({
+        ...doc.data(),
+        date: doc.data().date.toDate().toString().slice(4, 10),
+        id: doc.id,
+      }))
+    );
   };
   
   useEffect(() => {
@@ -103,9 +109,7 @@ export const AllEntries = () => {
       ),
     },
   ];
-  
-  
-
+    
   const data = expenseList.map((post) => {
     return {
       name: post.username,
@@ -115,7 +119,7 @@ export const AllEntries = () => {
     };
   });
 
-  const [records, setRecords] = useState(data);
+  const [records, setRecords] = useState([]);
   useEffect(() => {
     setRecords(
       expenseList.map((post) => ({
@@ -169,12 +173,10 @@ export const AllEntries = () => {
       setPrevMonth((prev) => !prev);
       setThisMonth((prev) => !prev);
       return;
-    }
-    if (prevMonth) {
+    } if (prevMonth) {
       setPrevMonth((prev) => !prev);
       return;
-    } 
-    else {
+    } else {
       setThisMonth((prev) => !prev);
     }
   }
@@ -221,5 +223,3 @@ export const AllEntries = () => {
     </div>
   );
 }
-
-
