@@ -21,8 +21,8 @@
   .App {
   width: 375px;
  height: 575px;
- margin-top: 20vh;
- border: solid 3px rgb(0, 0, 0);
+ margin-top: 10vh;
+ border: solid 3px rgba(1, 0, 6, 0.934);
   border-radius: 10px;
   z-index: 5;
   }

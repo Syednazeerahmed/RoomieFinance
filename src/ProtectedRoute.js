@@ -1,23 +1,13 @@
-// ProtectedRoute.js
-import React, { useState, useContext } from "react";
-// import { Route, Navigate } from "react-router-dom";
+import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./config/firebase";
 import { Outlet } from "react-router-dom";
 import { Login } from "./pages/login/login";
 
-
-
-
 const ProtectedRoute = () => {
-//   const [user, setUser] = useState(null); // Initialize user state with null
-
-    const [user] = useAuthState(auth); // Initialize user state with null
-  // Subscribe to authentication state changes
-//   useAuthState(auth, (user) => {
-//     setUser(user); // Update user state when authentication state changes
-//   });
-
+ 
+  const [user] = useAuthState(auth); // Initialize user state with null
+  
   return user ? <Outlet /> : <Login />;
 };
 

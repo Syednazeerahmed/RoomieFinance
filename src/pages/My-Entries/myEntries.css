@@ -1,0 +1,49 @@
+/* .dataTable {
+    height: 10em;
+} */
+
+.table {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    max-height: calc(100vh - 49px);
+    /* height: calc(100vh - 48px) ; */
+}
+
+.displayAmount {
+    height: 2.3em;
+    width: 100%;
+    background-color: rgba(1, 0, 6, 0.934);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter {
+    display: flex;
+    justify-content: center;
+    margin: 0.1em 0;
+    height: 2.5em;
+    /* Adjust the height as needed */
+}
+
+.filter button {
+    background-color: rgba(1, 0, 6, 0.934);
+    color: white;
+    padding: 0.5em;
+    border: none;
+    border-radius: 4px;
+    margin: 0 0.5em;
+    cursor: pointer;
+    width: 9em;
+}
+
+@media only screen and (min-width: 575px) {
+    .table {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        max-height: calc(575px - 49px);
+    }
+}

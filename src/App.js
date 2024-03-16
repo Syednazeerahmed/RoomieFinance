@@ -4,7 +4,9 @@ import { Navbar } from './components/navbar';
 import { Login } from "./pages/login/login";
 import { Entry } from './pages/Entry/entry';
 import { AllEntries } from './pages/All-Entries/allEntries';
+import { MyEntries } from './pages/My-Entries/myEntries'; 
 import ProtectedRoute from './ProtectedRoute';
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/entry" element={<Entry />} />
               <Route path="/allEntries" element={<AllEntries />} />
+              <Route path="/myEntries" element={<MyEntries />} />
             </Route>
           </Routes>
         </Router>

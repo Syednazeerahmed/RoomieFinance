@@ -20,11 +20,12 @@ export const Navbar = () => {
   return (
     <nav>
       <div className="links">
-        { !user && <Link to="/">login</Link>}
+        { !user && <Link to="/">Login Page</Link>}
         {user && (
           <>
             <Link to="entry">Input</Link>
             <Link to="allEntries">Expenses</Link>
+            <Link to="myEntries">My Exp</Link>
           </>
         )}
       </div>
