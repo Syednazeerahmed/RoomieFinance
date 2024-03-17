@@ -3,12 +3,15 @@ import { getDocs, collection, query, orderBy, deleteDoc, doc } from "firebase/fi
 import { db, auth } from "../../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import DataTable from "react-data-table-component";
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdModeEdit } from "react-icons/md";
+import { UpdateModal } from "./updateModal/updateModal";
 import "./myEntries.css";
 
 export const MyEntries = () => {
-
   const [user] = useAuthState(auth);
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
 
   const postsRef = collection(db, "Posts");
 
@@ -40,11 +43,11 @@ export const MyEntries = () => {
 
   const getPosts = async () => {
     const data = await getDocs(sortedPostsQuery);
-    
+
     setExpenseList(
       data.docs
         .filter((doc) => {
-            return doc.data().username === user?.displayName
+          return doc.data().username === user?.displayName;
         })
         .map((doc) => ({
           ...doc.data(),
@@ -53,7 +56,6 @@ export const MyEntries = () => {
         }))
     );
     console.log(expenseList[0]);
-    
   };
 
   useEffect(() => {
@@ -139,30 +141,45 @@ export const MyEntries = () => {
           style={{
             padding: "0px",
             margin: "0px",
-            height: "15px",
+            height: "25px",
             overflow: "hidden",
+            display: "flex",
+            gap: "20px",
+            // justifyContent: "center",
+            // alignItems: "center",
           }}
         >
           <button
             onClick={() => {
               deleteEntry(row.id);
             }}
-            style={{ background: "none", border: "none", fontSize: "15px" }}
+            style={{ background: "none", border: "none", fontSize: "25px" }}
           >
             <MdDelete />
+          </button>
+          <button
+            onClick={() => {
+              //   updateEntry(row.id);
+              console.log("update");
+              setSelectedRow(row);
+              setShowModal(true);
+            }}
+            style={{ background: "none", border: "none", fontSize: "25px" }}
+          >
+            <MdModeEdit />
           </button>
         </div>
       ),
     },
   ];
 
-    const deleteEntry = async (id) => {
+  const deleteEntry = async (id) => {
     //   const docRef = collection("Posts").doc(id);
     await deleteDoc(doc(db, "Posts", id));
     // await db.collection("Posts").doc(id).delete();
     // console.log(id);
     getPosts();
-    };
+  };
   const data = expenseList.map((post) => {
     return {
       name: post.username,
@@ -219,7 +236,7 @@ export const MyEntries = () => {
     }
   };
 
-  function range() {
+  function monthFilterToggler() {
     if (thisMonth) {
       setPrevMonth((prev) => !prev);
       setThisMonth((prev) => !prev);
@@ -233,38 +250,48 @@ export const MyEntries = () => {
     }
   }
 
-  
   return (
     <div className="table">
-      <div className="filter">
-        <button onClick={range}>
-          {thisMonth || prevMonth
-            ? thisMonth
-              ? "This Month"
-              : "Prev Month"
-            : "All"}
-        </button>
-      </div>
-      <div className="displayAmount">
-        <h2>Amount : {totalAmount}</h2>
-        {/* <input value={totalAmount} /> */}
-      </div>
-      <div
-        style={{
-          height: "auto",
-          maxHeight: "calc(100vh - 124.6px)",
-          overflowY: "auto",
-        }}
-        className="dataTable"
-      >
-        <DataTable
-          columns={columns}
-          data={records}
-          // fixedHeader
-          // pagination
-          // selectableRows
-        ></DataTable>
-      </div>
+      {!showModal ? (
+        <>
+          <div className="filter">
+            <button onClick={monthFilterToggler}>
+              {thisMonth || prevMonth
+                ? thisMonth
+                  ? "This Month"
+                  : "Prev Month"
+                : "All"}
+            </button>
+          </div>
+          <div className="displayAmount">
+            <h2>Amount : {totalAmount}</h2>
+            {/* <input value={totalAmount} /> */}
+          </div>
+          <div
+            style={{
+              height: "auto",
+              maxHeight: "calc(100vh - 124.6px)",
+              overflowY: "auto",
+            }}
+            className="dataTable"
+          >
+            <DataTable
+              columns={columns}
+              data={records}
+              // fixedHeader
+              // pagination
+              // selectableRows
+            ></DataTable>
+          </div>
+        </>
+      ) : (
+        <UpdateModal
+          show={showModal}
+          selectedRow={selectedRow}
+          onClose={() => setShowModal(false)}
+          onUpdate={getPosts}
+        />
+      )}
     </div>
   );
 };

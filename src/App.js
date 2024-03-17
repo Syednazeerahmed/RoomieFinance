@@ -6,7 +6,9 @@ import { Entry } from './pages/Entry/entry';
 import { AllEntries } from './pages/All-Entries/allEntries';
 import { MyEntries } from './pages/My-Entries/myEntries'; 
 import ProtectedRoute from './ProtectedRoute';
+import Modal from "react-modal";
 
+Modal.setAppElement("#root");
 
 function App() {
   return (
